@@ -28,3 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 <!-- https://developer.spotify.com/documentation/web-api -->
 <!-- https://restcountries.com/ -->
+<!-- https://developer.spotify.com/documentation/web-api/concepts/access-token -->
