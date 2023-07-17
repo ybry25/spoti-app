@@ -8,13 +8,27 @@ import { SpotifyService } from 'src/app/services/spotify.service';
   styles: [],
 })
 export class HomeComponent {
-  paises: any;
-  constructor(private http: HttpClient, private _spotify: SpotifyService) {
-    _spotify.getNewReleases();
-    http.get('https://restcountries.com/v3.1/lang/spanish').subscribe(
-      (data) => {
-        this.paises = data;
-        console.log(this.paises);
+  // paises: any;
+  nuevasCanciones: any[] = [];
+
+  constructor(
+    private http: HttpClient,
+    private spotifyService: SpotifyService
+  ) {
+    // http.get('https://restcountries.com/v3.1/lang/spanish').subscribe(
+    //   (data) => {
+    //     this.paises = data;
+    //     console.log(this.paises);
+    //   },
+    //   (e) => {
+    //     console.error(e);
+    //   }
+    // );
+    spotifyService.getNewReleases().subscribe(
+      (data: any) => {
+        console.log(data);
+        // console.log(data.albums.items);
+        this.nuevasCanciones = data;
       },
       (e) => {
         console.error(e);

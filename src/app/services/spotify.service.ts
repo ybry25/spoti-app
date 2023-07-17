@@ -1,37 +1,45 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { pipe } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpotifyService {
   id: any;
+  // =    'BQCV2QAqG6DZXPmAnNuKt-UFNHtw8dnK2e7K-jkXFBQeEJr_pNO3yfYJzBx4i1SnnaQQQK0zgUlMkaneigy4sBUnxSJ9wFHoCMcAuKLfq9uhrgLL3rw';
 
   constructor(private http: HttpClient) {
     console.warn('servicio Spotify');
-    // this.getToken();
+    // this.id = this.getToken();
+    console.log(this.id);
+  }
+
+  getQuery(query: string) {
+    const url = `https://api.spotify.com/v1/${query}`;
+    const headers = {
+      Authorization: `Bearer ${this.id}`,
+    };
+
+    return this.http.get(url, { headers });
   }
 
   getNewReleases<Observable>() {
-    const headers = {
-      Authorization:
-        'Bearer BQDPOFxZaUYt68srQJ440QNQpE7nbWMIKzPa1cpzRQcighkJ4LNWbq1sKD1uwePXTIVeEKMvGpA-pTFJFj7JwRT9v5LnluPpMQWq3CmHQcMICHcZ7Q8',
-    };
-
-    this.http
-      .get('https://api.spotify.com/v1/browse/new-releases?limit=20', {
-        headers,
+    return this.getQuery('browse/new-releases?limit=20').pipe(
+      map((data: any) => {
+        return data.albums.items;
       })
-      .subscribe(
-        (data) => {
-          console.log(data);
-        },
-        (e) => {
-          console.error(e);
-        }
-      );
-    return 0;
+    );
+  }
+
+  getArtist(artist: string) {
+    return this.getQuery(`search?q=${artist}&type=artist`).pipe(
+      map((data: any) => {
+        return data.artists.items;
+      })
+    );
   }
 
   getToken<Observable>() {
@@ -55,16 +63,10 @@ export class SpotifyService {
         body.toString(),
         httpOptions
       )
-      .subscribe(
-        (data) => {
-          console.log(data);
-          this.id = data;
-        },
-        (e) => {
-          console.error(e);
-        }
-      );
-    // return await this.id.access_token;
-    // console.log(this.id.access_token);
+      .subscribe((data: any) => {
+        console.log(data.access_token);
+
+        return data.access_token;
+      });
   }
 }
