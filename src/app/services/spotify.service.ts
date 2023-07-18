@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class SpotifyService {
   id: any =
-    'BQD0ERZs1uypMVrd-o9LlS1mxyoQy7AB525R6-BvOduVCYdlE0rlx3LHzDX9x8cn-t6IFUkUfR5YPv4zYhELdypNF27zT2xhjl0ewnbjtup_yNxF8Cw';
+    'QD0ERZs1uypMVrd-o9LlS1mxyoQy7AB525R6-BvOduVCYdlE0rlx3LHzDX9x8cn-t6IFUkUfR5YPv4zYhELdypNF27zT2xhjl0ewnbjtup_yNxF8Cw';
 
   constructor(private http: HttpClient) {
     console.warn('servicio Spotify');
@@ -56,33 +56,5 @@ export class SpotifyService {
     return this.getQuery(`artists/${id}/albums`).pipe(
       map((data: any) => data.items)
     );
-  }
-
-  getToken<Observable>() {
-    let body = new HttpParams({
-      fromObject: {
-        grant_type: 'client_credentials',
-        client_id: '317e305e179f4ac6aa5678da05cb9b58',
-        client_secret: 'e9bcf7ce75d54a1db428fc19f3b7c4a2',
-      },
-    });
-
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-      }),
-    };
-
-    this.http
-      .post(
-        'https://accounts.spotify.com/api/token',
-        body.toString(),
-        httpOptions
-      )
-      .subscribe((data: any) => {
-        console.log(data.access_token);
-
-        return data.access_token;
-      });
   }
 }

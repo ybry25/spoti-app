@@ -11,6 +11,8 @@ export class HomeComponent {
   // paises: any;
   nuevasCanciones: any[] = [];
   loading: boolean;
+  error: boolean = false;
+  mensajeError = '';
 
   constructor(
     private http: HttpClient,
@@ -35,6 +37,9 @@ export class HomeComponent {
       },
       (e) => {
         console.error(e);
+        this.error = true;
+        this.loading = false;
+        this.mensajeError = e.error.error.message;
       }
     );
   }
