@@ -10,11 +10,13 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 export class HomeComponent {
   // paises: any;
   nuevasCanciones: any[] = [];
+  loading: boolean;
 
   constructor(
     private http: HttpClient,
     private spotifyService: SpotifyService
   ) {
+    this.loading = true;
     // http.get('https://restcountries.com/v3.1/lang/spanish').subscribe(
     //   (data) => {
     //     this.paises = data;
@@ -29,6 +31,7 @@ export class HomeComponent {
         console.log(data);
         // console.log(data.albums.items);
         this.nuevasCanciones = data;
+        this.loading = false;
       },
       (e) => {
         console.error(e);

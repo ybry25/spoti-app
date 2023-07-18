@@ -9,6 +9,10 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { SearchComponent } from './components/search/search.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { FormsModule } from '@angular/forms';
+import { NoImgPipe } from './pipes/no-img.pipe';
+import { TarjetasComponent } from './components/tarjetas/tarjetas.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
+import { TrackPipe } from './pipes/track.pipe';
 
 @NgModule({
   declarations: [
@@ -17,6 +21,10 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     SearchComponent,
     ArtistComponent,
+    NoImgPipe,
+    TarjetasComponent,
+    LoadingComponent,
+    TrackPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
